@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Actual Profile by Carbon Actual</title>
+  <style>
+    :root{
+      --bg:#05070d;
+      --panel:#0b1020;
+      --panel2:#10182c;
+      --text:#eef6ff;
+      --muted:#9fb3c8;
+      --cyan:#00e5ff;
+      --violet:#8b5cf6;
+      --green:#35f2a1;
+      --gold:#ffd166;
+      --danger:#ff5b7f;
+      --line:rgba(255,255,255,.12);
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(0,229,255,.18), transparent 32%),
+        radial-gradient(circle at top right, rgba(139,92,246,.18), transparent 36%),
+        linear-gradient(180deg,#05070d,#080b14 40%,#030409);
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    .app{
+      display:grid;
+      grid-template-columns:280px 1fr;
+      min-height:100vh;
+    }
+
+    aside{
+      border-right:1px solid var(--line);
+      background:rgba(3,6,14,.72);
+      backdrop-filter: blur(18px);
+      padding:24px 18px;
+      position:sticky;
+      top:0;
+      height:100vh;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-bottom:28px;
+    }
+
+    .orb{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:radial-gradient(circle at 30% 30%,#fff,var(--cyan) 18%,var(--violet) 60%,#09111f 100%);
+      box-shadow:0 0 30px rgba(0,229,255,.55), inset 0 0 18px rgba(255,255,255,.25);
+    }
+
+    .brand h1{
+      font-size:17px;
+      margin:0;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .brand p{
+      margin:2px 0 0;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    nav{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    button.nav{
+      all:unset;
+      cursor:pointer;
+      padding:12px 12px;
+      border-radius:16px;
+      color:var(--muted);
+      border:1px solid transparent;
+      transition:.2s ease;
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+    }
+
+    button.nav:hover,
+    button.nav.active{
+      color:var(--text);
+      border-color:rgba(0,229,255,.28);
+      background:linear-gradient(90deg,rgba(0,229,255,.11),rgba(139,92,246,.08));
+      box-shadow:0 0 24px rgba(0,229,255,.08);
+    }
+
+    main{
+      padding:34px;
+      position:relative;
+    }
+
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      margin-bottom:24px;
+    }
+
+    .badge{
+      border:1px solid rgba(53,242,161,.25);
+      color:#c9ffe8;
+      background:rgba(53,242,161,.08);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      display:inline-block;
+    }
+
+    .screen{
+      display:none;
+      animation:fade .28s ease;
+    }
+
+    .screen.active{
+      display:block;
+    }
+
+    @keyframes fade{
+      from{
+        opacity:.4;
+        transform:translateY(8px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .hero{
+      min-height:72vh;
+      border:1px solid var(--line);
+      border-radius:34px;
+      padding:42px;
+      background:
+        linear-gradient(135deg,rgba(11,16,32,.88),rgba(7,10,18,.72)),
+        radial-gradient(circle at 70% 20%,rgba(0,229,255,.12),transparent 30%);
+      box-shadow:0 28px 100px rgba(0,0,0,.45);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:-50%;
+      background-image:
+        linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size:44px 44px;
+      transform:rotate(10deg);
+      mask-image:radial-gradient(circle at center, black 0, transparent 62%);
+      opacity:.45;
+    }
+
+    .hero>*{
+      position:relative;
+    }
+
+    h2{
+      font-size:54px;
+      line-height:1.02;
+      margin:0 0 18px;
+      letter-spacing:-.05em;
+    }
+
+    h3{
+      font-size:28px;
+      margin:0 0 12px;
+      letter-spacing:-.03em;
+    }
+
+    p{
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    .accent{
+      background:linear-gradient(90deg,var(--cyan),var(--green),var(--gold));
+      -webkit-background-clip:text;
+      color:transparent;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:18px;
+    }
+
+    .card{
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:20px;
+      background:linear-gradient(180deg,rgba(16,24,44,.88),rgba(8,12,22,.88));
+      box-shadow:0 18px 60px rgba(0,0,0,.25);
+    }
+
+    .span3{
+      grid-column:span 3;
+    }
+
+    .span4{
+      grid-column:span 4;
+    }
+
+    .span5{
+      grid-column:span 5;
+    }
+
+    .span6{
+      grid-column:span 6;
+    }
+
+    .span7{
+      grid-column:span 7;
+    }
+
+    .span8{
+      grid-column:span 8;
+    }
+
+    .span12{
+      grid-column:span 12;
+    }
+
+    .cta{
+      border:0;
+      cursor:pointer;
+      color:#001117;
+      font-weight:800;
+      background:linear-gradient(90deg,var(--cyan),var(--green));
+      border-radius:16px;
+      padding:14px 18px;
+      box-shadow:0 0 24px rgba(0,229,255,.28);
+    }
+
+    .ghost{
+      background:transparent;
+      color:var(--text);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:13px 18px;
+      cursor:pointer;
+    }
+
+    .field{
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px 16px;
+      color:var(--text);
+      width:100%;
+      margin-top:8px;
+    }
+
+    label{
+      color:#dcecff;
+      font-size:13px;
+    }
+
+    .metric{
+      font-size:32px;
+      font-weight:900;
+      margin:0;
+      color:#fff;
+    }
+
+    .mini{
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      color:#dbeafe;
+      background:rgba(255,255,255,.04);
+      font-size:12px;
+      margin:4px;
+    }
+
+    .progress{
+      height:10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      overflow:hidden;
+    }
+
+    .bar{
+      height:100%;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--cyan),var(--violet),var(--green));
+    }
+
+    .timeline{
+      position:relative;
+      padding-left:22px;
+    }
+
+    .timeline:before{
+      content:"";
+      position:absolute;
+      left:5px;
+      top:7px;
+      bottom:7px;
+      width:2px;
+      background:linear-gradient(var(--cyan),var(--violet),var(--green));
+    }
+
+    .event{
+      position:relative;
+      margin:0 0 18px;
+      padding:16px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+    }
+
+    .event:before{
+      content:"";
+      position:absolute;
+      left:-23px;
+      top:22px;
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:var(--cyan);
+      box-shadow:0 0 18px var(--cyan);
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+    }
+
+    th,td{
+      padding:14px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      color:#dbeafe;
+      font-size:13px;
+    }
+
+    th{
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    @media(max-width:900px){
+      .app{
+        grid-template-columns:1fr;
+      }
+
+      aside{
+        position:relative;
+        height:auto;
+      }
+
+      nav{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      main{
+        padding:18px;
+      }
+
+      h2{
+        font-size:38px;
+      }
+
+      .span3,
+      .span4,
+      .span5,
+      .span6,
+      .span7,
+      .span8,
+      .span12{
+        grid-column:span 12;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="app">
+  <aside>
+    <div class="brand">
+      <div class="orb"></div>
+      <div>
+        <h1>Carbon Actual</h1>
+        <p>Actual Profile MVP</p>
+      </div>
+    </div>
+
+    <nav id="nav"></nav>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <div>
+        <div class="badge">SEAL Protected Prototype</div>
+      </div>
+      <div class="mini">Sample user: Abdullahi Abubakar · Abuja, Nigeria</div>
+    </div>
+
+    <section class="screen active" id="s0">
+      <div class="hero">
+        <p class="badge">AI-powered human progress infrastructure</p>
+
+        <h2>From <span class="accent">Being</span><br/>to Becoming.</h2>
+
+        <p style="max-width:680px;font-size:18px">
+          Actual Profile helps people turn education, skills, documents, goals, actions, and proof into a guided opportunity pathway.
+        </p>
+
+        <div style="display:flex;gap:12px;margin-top:28px;flex-wrap:wrap">
+          <button class="cta" onclick="go(1)">Start Becoming</button>
+          <button class="ghost" onclick="go(9)">View Institution Demo</button>
+        </div>
+
+        <div class="grid" style="margin-top:42px">
+          <div class="card span4">
+            <p class="metric">Root</p>
+            <p>Living profile of identity, skills, records, goals, and value signals.</p>
+          </div>
+
+          <div class="card span4">
+            <p class="metric">SEAL</p>
+            <p>Permission layer for protected sharing, document control, and audit trails.</p>
+          </div>
+
+          <div class="card span4">
+            <p class="metric">PULSE</p>
+            <p>Verified progress signals created from meaningful actions and proof.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="s1">
+      <div class="grid">
+        <div class="card span7">
+          <h3>Secure Sign Up / Login</h3>
+          <p>
+            Enter Actual Profile as an individual or institution. Access is controlled, permissioned, and SEAL-aware.
+          </p>
+
+          <label>Email or phone</label>
+          <input class="field" value="carbonactuall@gmail.com"/>
+
+          <label style="display:block;margin-top:14px">Password</label>
+          <input class="field" type="password" value="password"/>
+
+          <div style="display:flex;gap:12px;margin-top:20px">
+            <button class="cta" onclick="go(2)">Continue</button>
+            <button class="ghost">Organization Login</button>
+          </div>
+        </div>
+
+        <div class="card span5">
+          <h3>Trust cues</h3>
+          <p>
+            <span class="pill">Encrypted profile</span>
+            <span class="pill">Document control</span>
+            <span class="pill">Audit logs</span>
+            <span class="pill">Permission sharing</span>
+          </p>
+
+          <div class="progress">
+            <div class="bar" style="width:72%"></div>
+          </div>
+
+          <p class="mini">Security readiness: 72%</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="s2">
+      <div class="grid">
+        <div class="card span8">
+          <h3>Root Profile Setup</h3>
+          <p>Your Root Profile is the foundation of your becoming pathway.</p>
+
+          <div class="grid">
+            <div class="span6">
+              <label>Name</label>
+              <input class="field" value="Abdullahi Abubakar"/>
+            </div>
+
+            <div class="span6">
+              <label>Location</label>
+              <input class="field" value="Abuja, Nigeria"/>
+            </div>
+
+            <div class="span12">
+              <label>Current goal</label>
+              <input class="field" value="Build a future-ready AI and opportunity profile"/>
+            </div>
+          </div>
+
+          <button class="cta" style="margin-top:20px" onclick="go(3)">Build My Root</button>
+        </div>
+
+        <div class="card span4">
+          <h3>Profile Completion</h3>
+          <p class="metric">38%</p>
+
+          <div class="progress">
+            <div class="bar" style="width:38%"></div>
+          </div>
+
+          <p>Actual recommends completing education, skills, documents, and proof records next.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="s3">
+      <div class="grid">
+        <div class="card span6">
+          <h3>Education</h3>
+          <p class="pill">University / Higher Education</p>
+          <p class="pill">AI literacy</p>
+          <p class="pill">Business strategy</p>
+          <p>Add school records, exams, certifications, training, and learning milestones.</p>
+        </div>
+
+        <div class="card span6">
+          <h3>Skills</h3>
+          <p class="pill">Product strategy</p>
+          <p class="pill">AI prompting</p>
+          <p class="pill">Systems thinking</p>
+          <p class="pill">Business development</p>
+          <p>Actual identifies what you can prove now and what you need to build next.</p>
+        </div>
+
+        <div class="card span12">
+          <h3>AI Suggestion</h3>
+          <p>
+            To strengthen your opportunity profile, add proof for AI product development, pitch writing, financial modeling, public-sector integration, and startup execution.
+          </p>
+          <button class="cta" onclick="go(4)">Add Proof</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="s4">
+      <div class="grid">
+        <div class="card span7">
+          <h3>Document Vault</h3>
+          <p>Upload certificates, ID, CV, proposals, work samples, and proof documents.</p>
+
+          <div class="card" style="border-style:dashed;text-align:center;padding:34px">
+            <h3>Drop files here</h3>
+            <p>or tap to upload from mobile</p>
+            <button class="ghost">Choose Files</button>
+          </div>
+        </div>
+
+        <div class="card span5">
+          <h3>Document Status</h3>
+          <p><span class="pill">Certificate · Private</span></p>
+          <p><span class="pill">CV · Pending Review</span></p>
+          <p><span class="pill">Pitch Deck · Verified</span></p>
+          <p><span class="pill">ID · SEAL Restricted</span></p>
+
+          <button class="cta" onclick="go(5)">Set My Goal</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="s5">
+      <div class="grid">
+        <div class="card span12">
+          <h3>What are you trying to become?</h3>
+
+          <p>
+            Actual turns your goal into a structured pathway with proof, actions, and opportunities.
+          </p>
+
+          <input class="field" value="Build a future-ready AI and opportunity profile"/>
+
+          <div style="margin-top:20px">
+            <span class="pill">Career</span>
+            <span class="pill">Business</span>
+            <span class="pill">Education</span>
+            <span class="pill">Credit</span>
+            <span class="pill">Property</span>
+            <span class="pill">Institution Support</span>
+          </div>
+
+          <button class="cta" style="margin-top:22px" onclick="go(6)">Generate Pathway</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="s6">
+      <div class="grid">
+        <div class="card span12">
+          <h3>AI-Generated Pathway</h3>
+          <p class="badge">Education → Skills → Proof → Opportunity → Value Growth</p>
+        </div>
+
+        <div class="card span4">
+          <h3>30-Day Plan</h3>
+          <p>
+            Complete Root Profile, upload documents, select one Become goal, add 5 proof records, and join 3 opportunity pipelines.
+          </p>
+        </div>
+
+        <div class="card span4">
+          <h3>90-Day Plan</h3>
+          <p>
+            Build a verified AI/product profile, publish portfolio proof, secure institutional pilot conversations, and launch paid early access.
+          </p>
+        </div>
+
+        <div class="card span4">
+          <h3>Proof to Collect</h3>
+          <p>
+            Certificates, product demos, pitch documents, testimonials, payment records, training completion, and project outputs.
+          </p>
+        </div>
+
+        <div class="card span12">
+          <button class="cta" onclick="go(7)">Begin Pathway</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="s7">
+      <div class="grid">
+        <div class="card span7">
+          <h3>Proof / PULSE Timeline</h3>
+
+          <div class="timeline">
+            <div class="event">
+              <strong>Root Profile Created</strong>
+              <p class="mini">Private · SEAL protected</p>
+            </div>
+
+            <div class="event">
+              <strong>Become Goal Set</strong>
+              <p class="mini">AI opportunity profile pathway generated</p>
+            </div>
+
+            <div class="event">
+              <strong>Document Uploaded</strong>
+              <p class="mini">Pending review</p>
+            </div>
+
+            <div class="event">
+              <strong>Skill Added</strong>
+              <p class="mini">AI product strategy · proof needed</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card span5">
+          <h3>Value Signal</h3>
+          <p class="metric">64%</p>
+          <p>Your PULSE strengthens as actions become verified proof.</p>
+          <button class="cta" onclick="go(8)">Find Opportunities</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="s8">
+      <div class="grid">
+        <div class="card span12">
+          <h3>Opportunity Marketplace</h3>
+          <p>Matched to Abdullahi’s profile, goal, location, and pathway.</p>
+        </div>
+
+        <div class="card span4">
+          <h3>AI Training Pilot</h3>
+          <p class="badge">92% match</p>
+          <p>Requires profile, skills proof, and learning pathway.</p>
+          <button class="ghost">Apply</button>
+        </div>
+
+        <div class="card span4">
+          <h3>Institution Partner Demo</h3>
+          <p class="badge">88% match</p>
+          <p>Pitch Actual Profile to schools, lenders, and training centers.</p>
+          <button class="ghost">Apply</button>
+        </div>
+
+        <div class="card span4">
+          <h3>Funding Readiness Review</h3>
+          <p class="badge">81% match</p>
+          <p>Prepare proof, proposal, budget, traction, and pilot plan.</p>
+          <button class="ghost">Apply</button>
+        </div>
+
+        <div class="card span12">
+          <button class="cta" onclick="go(9)">Institution View</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="s9">
+      <div class="grid">
+        <div class="card span12">
+          <h3>Institution Dashboard</h3>
+          <p>
+            For schools, employers, lenders, NGOs, and government programs managing human progress at scale.
+          </p>
+        </div>
+
+        <div class="card span3">
+          <p class="metric">1,248</p>
+          <p class="mini">Users onboarded</p>
+        </div>
+
+        <div class="card span3">
+          <p class="metric">786</p>
+          <p class="mini">Active pathways</p>
+        </div>
+
+        <div class="card span3">
+          <p class="metric">342</p>
+          <p class="mini">Verified proof records</p>
+        </div>
+
+        <div class="card span3">
+          <p class="metric">64</p>
+          <p class="mini">Opportunities matched</p>
+        </div>
+
+        <div class="card span12">
+          <table>
+            <thead>
+              <tr>
+                <th>Applicant</th>
+                <th>Pathway</th>
+                <th>Proof</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Abdullahi Abubakar</td>
+                <td>Education → Skills → Proof → Opportunity</td>
+                <td>64%</td>
+                <td>Review</td>
+              </tr>
+
+              <tr>
+                <td>Student Cohort A</td>
+                <td>Learning → Assessment → Placement</td>
+                <td>48%</td>
+                <td>Active</td>
+              </tr>
+
+              <tr>
+                <td>SME Group</td>
+                <td>Business → Credit → Market</td>
+                <td>52%</td>
+                <td>Pending</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  const labels = [
+    "Welcome / Become",
+    "Sign Up / Login",
+    "Root Profile",
+    "Education & Skills",
+    "Document Upload",
+    "Become Goal",
+    "AI Pathway",
+    "PULSE Timeline",
+    "Opportunities",
+    "Institution Dashboard"
+  ];
+
+  const nav = document.getElementById("nav");
+
+  labels.forEach((label, index) => {
+    const button = document.createElement("button");
+    button.className = "nav" + (index === 0 ? " active" : "");
+    button.innerHTML = "<span>" + String(index + 1).padStart(2, "0") + ". " + label + "</span><span>›</span>";
+    button.onclick = () => go(index);
+    nav.appendChild(button);
+  });
+
+  function go(index){
+    document.querySelectorAll(".screen").forEach(screen => {
+      screen.classList.remove("active");
+    });
+
+    document.getElementById("s" + index).classList.add("active");
+
+    document.querySelectorAll(".nav").forEach((button, buttonIndex) => {
+      button.classList.toggle("active", buttonIndex === index);
+    });
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+  }
+</script>
+</body>
+</html>
